@@ -1,7 +1,7 @@
-const contactsOperation = require('../../model');
+const { Contact } = require('../../models');
 
 const getAll = async (_, res) => {
-  const contacts = await contactsOperation.listContacts();
+  const contacts = await Contact.find({});
   if (!contacts) {
     const error = new Error('Not found');
     error.status = 404;
