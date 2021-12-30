@@ -1,6 +1,6 @@
 .idea
 .vscode
+.env
 package-lock.json
 yarn.lock
-.env
 node_modules/
