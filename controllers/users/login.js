@@ -2,7 +2,6 @@ const { Unauthorized } = require('http-errors');
 const { User } = require('../../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-// var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 
 const { SECRET_KEY } = process.env;
 
@@ -19,7 +18,7 @@ const login = async (req, res) => {
   };
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
 
-  user.token = token;
+  await User.findByIdAndUpdate(user._id, { token });
 
   res.json({
     status: 'success',
