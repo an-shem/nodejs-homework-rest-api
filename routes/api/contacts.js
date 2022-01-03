@@ -5,7 +5,14 @@ const { contacts: ctrl } = require('../../controllers');
 const { validation, ctrlWrapper } = require('../../middlewares');
 const { joiSchemaAdd, joiSchemaUpdate, favoriteJoiSchema } = require('../../models/contact');
 
-router.get('/', ctrlWrapper(ctrl.getAll));
+router.get(
+  '/',
+  (req, res, next) => {
+    console.log('Hello Node.js');
+    next();
+  },
+  ctrlWrapper(ctrl.getAll)
+);
 
 router.get('/:contactId', ctrlWrapper(ctrl.getById));
 
