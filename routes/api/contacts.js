@@ -5,11 +5,11 @@ const { contacts: ctrl } = require('../../controllers');
 const { auth, validation, ctrlWrapper } = require('../../middlewares');
 const { joiSchemaAdd, joiSchemaUpdate, favoriteJoiSchema } = require('../../models/contact');
 
-router.get('/', ctrlWrapper(ctrl.getAll));
+router.get('/', auth, ctrlWrapper(ctrl.getAll));
 
 router.get('/:contactId', ctrlWrapper(ctrl.getById));
 
-router.post('/', validation(joiSchemaAdd), ctrlWrapper(ctrl.add));
+router.post('/', auth, validation(joiSchemaAdd), ctrlWrapper(ctrl.add));
 
 router.delete('/:contactId', ctrlWrapper(ctrl.removeById));
 
