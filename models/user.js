@@ -30,9 +30,14 @@ const joiSchemaUser = Joi.object({
   password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
 });
 
+const subscriptionJoiSchema = Joi.object({
+  subscription: Joi.string().valid('starter', 'pro', 'business').required(),
+});
+
 const User = model('user', userSchema);
 
 module.exports = {
   User,
   joiSchemaUser,
+  subscriptionJoiSchema,
 };
