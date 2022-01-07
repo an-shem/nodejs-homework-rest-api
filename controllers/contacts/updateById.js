@@ -1,12 +1,15 @@
+const { NotFound } = require('http-errors');
 const { Contact } = require('../../models');
 
 const updateById = async (req, res) => {
+  const { _id } = req.user;
   const { contactId } = req.params;
-  const updateContact = await Contact.findByIdAndUpdate(contactId, req.body, { new: true });
+  const updateContact = await Contact.findOneAndUpdate({ _id: contactId, owner: { _id: _id } }, req.body, {
+    new: true,
+  });
+  console.log('updateContact', updateContact);
   if (!updateContact) {
-    const error = new Error('Not found');
-    error.status = 404;
-    throw error;
+    throw new NotFound();
   }
   res.json(updateContact);
 };

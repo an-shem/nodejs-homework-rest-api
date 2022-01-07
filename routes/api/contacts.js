@@ -7,14 +7,14 @@ const { joiSchemaAdd, joiSchemaUpdate, favoriteJoiSchema } = require('../../mode
 
 router.get('/', auth, ctrlWrapper(ctrl.getAll));
 
-router.get('/:contactId', ctrlWrapper(ctrl.getById));
+router.get('/:contactId', auth, ctrlWrapper(ctrl.getById));
 
 router.post('/', auth, validation(joiSchemaAdd), ctrlWrapper(ctrl.add));
 
-router.delete('/:contactId', ctrlWrapper(ctrl.removeById));
+router.delete('/:contactId', auth, ctrlWrapper(ctrl.removeById));
 
-router.put('/:contactId', validation(joiSchemaUpdate), ctrlWrapper(ctrl.updateById));
+router.put('/:contactId', auth, validation(joiSchemaUpdate), ctrlWrapper(ctrl.updateById));
 
-router.patch('/:contactId/favorite', validation(favoriteJoiSchema), ctrlWrapper(ctrl.updateFavorite));
+router.patch('/:contactId/favorite', auth, validation(favoriteJoiSchema), ctrlWrapper(ctrl.updateFavorite));
 
 module.exports = router;
