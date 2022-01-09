@@ -1,4 +1,4 @@
-const { BadRequest } = require('http-errors');
+const { BadRequest, NotFound } = require('http-errors');
 const { Contact } = require('../../models');
 
 const getAll = async (req, res) => {
@@ -22,9 +22,7 @@ const getAll = async (req, res) => {
   }).populate('owner', '_id email subscription');
 
   if (!contacts || contacts.length === 0) {
-    const error = new Error('Not found');
-    error.status = 404;
-    throw error;
+    throw new NotFound();
   }
   res.json(contacts);
 };
